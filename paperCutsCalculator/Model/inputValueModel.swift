@@ -40,6 +40,7 @@ struct PaperDetails {
 			longLenght = 18
 		}
 		
+        // why separate declaration?
 		let longGrainValue : Double
 		let shortGrainValue : Double
 		
@@ -47,11 +48,13 @@ struct PaperDetails {
 		longGrainValue = (removeDecimalValues(shortLength/shortS) * removeDecimalValues(longLenght/longS))
 		shortGrainValue = (removeDecimalValues(shortLength/longS) * removeDecimalValues(longLenght/shortS))
 		
+        // use tuple here
 		return [longGrainValue, shortGrainValue]
 	}
 	
 	// converts incoming values to strings and removes values after decimal 
 	func removeDecimalValues(_ rawValueDouble: Double)->Double{
+        // Why are you reinventing basic flooring operation?
 		let stringValue = String(rawValueDouble)
 		let removedDecimal = stringValue.split(separator: ".")
 		let correctedValue = removedDecimal[0]

@@ -9,6 +9,8 @@
 import Foundation
 import UIKit
 
+// Why do you have to have everything in extension and separate file?
+
 extension SplashScreenViewController {
 	
 	
@@ -36,6 +38,7 @@ extension SplashScreenViewController {
 	}
 	
 	func setSegueTimer(){
+        // new lines
 		_ = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(segue), userInfo: nil, repeats: false)
 	}
 	

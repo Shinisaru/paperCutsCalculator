@@ -7,9 +7,10 @@
 //
 
 import Foundation
+// UIKit already likns Foundation
 import UIKit
 
-
+// Model has to be a separate entity, not an extension over controller
 extension ViewController {
 	
 	func addStockSizesToList(){
@@ -21,6 +22,8 @@ extension ViewController {
 	
 	
 	func gatherData() {
+        // prefer using single line guard statements
+        // at least put every guard case on separate line
 		guard let shortSideOfStock = shortValueInput.text, let longSideOfStock = longValueInput.text else {
 			clearValues()
 			return	
@@ -43,6 +46,7 @@ extension ViewController {
 		
 		guard let parentSizeSelector = determineStockSizeValues(sizePicker.selectedRow(inComponent: 0)) else {return}
 		
+        // every parameter on new line
 		cutsForProject = PaperDetails(shortSideInput: doubleShortSideOfStock, longSideInput: doubleLongSideOfStock, parentSheetSize: parentSizeSelector)
 		
 		guard let cutsForProject = cutsForProject else {return}
@@ -60,7 +64,7 @@ extension ViewController {
 	
 	
 	func determineStockSizeValues(_ selectedSizeInPicker: Int) -> PaperSizes?{
-		
+        // Make PaperSize of rawType Int and use PaperSizes(rawValue: selectedSizeInPicker)
 		switch selectedSizeInPicker {
 		case 0:
 			return .letter
@@ -86,7 +90,7 @@ extension ViewController {
 				checkButtonCount(submitButtonCount)
 			}
 			
-			
+            // this is an example of antipattern called pyramid of doom; avoid it
 			if submitButtonCount == 2 {
 				gatherData()
 				keyboardWillHide()
@@ -107,6 +111,8 @@ extension ViewController {
 	
 	func checkButtonCount(_ buttonCounter: Int){
 		guard shortValueInput.text != nil else {return}
+        
+        // submitButtonCount += 1, labelString = "" redundancy
 		switch buttonCounter {
 		case 0:
 				submitButtonCount += 1
@@ -124,6 +130,7 @@ extension ViewController {
 	func gatherCalculations(){
 		solutionArray = cutsForProject.performCalculation(cutsForProject.shortSideInput, cutsForProject.longSideInput, cutsForProject.parentSheetSize)
 		
+        // why did you separate declaration and assigment?
 		var longGrain : String = ""
 		var shortGrain : String = ""
 		
@@ -143,6 +150,7 @@ extension ViewController {
 	func dataTransferToLabels(_ sender: UIButton){
 		guard let inputValue = sender.titleLabel?.text else {return}
 		
+        // absolute state of redundacy here
 		switch submitButtonCount {
 		case 0:
 			labelString = labelString?.appending(inputValue)
